@@ -12,8 +12,10 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Maps
+  companyName: WiseFoxes
+  productName: "\u041A\u0430\u0440\u0442\u0430 \u0424\u0435\u0434\u0435\u0440\u0430\u043B\u044C\u043D\u044B\u0445
+    \u041E\u043A\u0440\u0443\u0433\u043E\u0432 \u0420\u043E\u0441\u0441\u0438\u0438
+    test"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -140,8 +142,9 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.0
-  preloadedAssets: []
+  bundleVersion: 0.1 test
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
