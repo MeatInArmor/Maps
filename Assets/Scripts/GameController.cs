@@ -1,16 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
-    public event System.Action<int> onObjectClick;
     //public event System.Action<int> onObjectClick;
 
-    [SerializeField] public MapStructure mode;
+    [SerializeField] public MapModeSO mode;
 
     [SerializeField] public AnswerPanel answerPanel;
     [SerializeField] public MapPanel mapPanel;
@@ -22,34 +20,57 @@ public class GameController : MonoBehaviour
 
 
 
+   
+    void Start()
+    {
+        recordText.text += $"{mode.hightScore}%";
+        modeName.text = $"{mode.ModeName}"; 
+
+    }
     private void OnEnable()
     {
-        SGameInfo.selectedAnswerID = "";
-        SGameInfo.selectedAnswerColor = Color.white;
+
+
+        if (CurrentGameInfoST.currentGamemode != null)
+            mode = CurrentGameInfoST.currentGamemode;
+        else
+            CurrentGameInfoST.currentGamemode = mode;
+
+        CurrentGameInfoST.selectedAnswerID = "";
+        CurrentGameInfoST.selectedAnswerColor = Color.white;
+
 
         mapPanel.SetBasicMap(mode.BasicMap, mode.ExternalBorder, mode.InternalBorder, mode.Waters);
-        if (mode.Gamemode == 0)
+        if (mode != null)
         {
-            for (int i = 0; i < mode.RegionsSprites.Length; i++)
+            if (mode.Gamemode == 0)
             {
-                mapPanel.CreateRegion(mode.RegionsSprites[i], mode.RegionsTrueAnswer[i]);
+                mapPanel.mapRegionsStore.SetActive(true);
+                for (int i = 0; i < mode.RegionsSprites.Length; i++)
+                {
+                    mapPanel.CreateRegion(mode.RegionsSprites[i], mode.ObjectsTrueAnswer[i]);
+                    StartCoroutine(WaitForCreate());
+
+                }
+                for (int j = 0; j < mode.AnswerColors.Length; j++)
+                {
+                    answerPanel.CreateAnswerVariant(null, mode.AnswerColors[j], mode.AnswerTitles[j], j);
+
+                }
             }
-            for (int j = 0; j < mode.AnswerColors.Length; j++)
+            if(mode.Gamemode == 1)
             {
-                answerPanel.CreateAnswerVariant(null, mode.AnswerColors[j], mode.AnswerTitles[j], j);
+                mapPanel.mapPointsStore.SetActive(true);
+
+                for (int i = 0;i < mode.OnMapPointsXY.Length;i++)
+                    mapPanel.CreateAnswerPoint(mode.OnMapPointsXY[i], mode.ObjectsTrueAnswer[i], mode.OnMapPointsSprites[i]);
+                for (int j = 0; j < mode.AnswerIcons.Length; j++)
+                    answerPanel.CreateAnswerVariant(mode.AnswerIcons[j], Color.white, mode.AnswerTitles[j], j);
 
             }
         }
     }
-    void Start()
-    {
-        recordText.text += $"{mode.hightScore}%";
-    }
 
-    void Update()
-    {
-        
-    }
     public void ResetSelected()
     {
         answerPanel.ClearAnswer();
@@ -65,12 +86,22 @@ public class GameController : MonoBehaviour
             mode.hightScore = totalScore;
         }
     }
+
     public void ReloadScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void GoToMenuScene()
     {
         SceneManager.LoadScene(0);
     }
     public void ExitGame()
     {
         Application.Quit();
+    }
+    IEnumerator WaitForCreate()
+    {
+        yield return null;
+        yield break;
     }
 }

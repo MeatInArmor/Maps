@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9df0c7f61120e449a7d8a9a59371bbb, type: 3}
+  m_Name: TestMap0
+  m_EditorClassIdentifier: 
+  gameMode: 0
+  id: test1
+  tags:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  modeName: "\u0424\u0435\u0434\u0435\u0440\u0430\u043B\u044C\u043D\u044B\u0435 \u043E\u043A\u0440\u0443\u0433\u0430"
+  percentFault: 0
+  hightScore: 0
+  attempts: 0
+  basicMap: {fileID: 4741138583545750825, guid: 81df18c655cce4747b419ce28630f3ba, type: 3}
+  externalBorder: {fileID: -8105253223283537720, guid: f4534e28c4f4ccb4b8c32b0cc2a72b80, type: 3}
+  internalBorder: {fileID: -7332388143302164324, guid: 0196a5078a8d9004081ede08563807b4, type: 3}
+  waters: {fileID: 0}
+  numOfObjects: 9
+  numOfAnswers: 9
+  regionsSprites:
+  - {fileID: -3164809056393425246, guid: 08fe3604c9208bb44a07732ebc6365f8, type: 3}
+  - {fileID: -5225540622116197949, guid: dc670ee2c1a5d10418152ebc8a087ccd, type: 3}
+  - {fileID: 3704470676555248339, guid: 77c736b03d055da4d9d081e6bab33924, type: 3}
+  - {fileID: 2750298860172458669, guid: 77b3859a64e15094e9b728029c2d639a, type: 3}
+  - {fileID: -2276259661975475453, guid: 0e471dd3136ad1142907f3ca4fc1f0e6, type: 3}
+  - {fileID: 141893073332109768, guid: 03a621d47dabf3d44bb0211030eb9444, type: 3}
+  - {fileID: 7336298474659753992, guid: 13890c781d4593d45bda5141706d0422, type: 3}
+  - {fileID: -247037112251525876, guid: b18cc7a28244b2f41a078a2225fdf9c4, type: 3}
+  - {fileID: -3356593810811537127, guid: bc46d3302ded25a4089332def15e8006, type: 3}
+  regionsSpritesColors: []
+  objectsTrueAnswer:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  answerTitles:
+  - "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u044C\u043D\u044B\u0439 \u0424\u041E"
+  - "\u042E\u0436\u043D\u044B\u0439 \u0424\u041E"
+  - "\u0421\u0435\u0432\u0435\u0440\u043E-\u0417\u0430\u043F\u0430\u0434\u043D\u044B\u0439
+    \u0424\u041E"
+  - "\u0414\u0430\u043B\u044C\u043D\u0435\u0432\u043E\u0441\u0442\u043E\u0447\u043D\u044B\u0439
+    \u0424\u041E"
+  - "\u0421\u0438\u0431\u0438\u0440\u0441\u043A\u0438\u0439 \u0424\u041E"
+  - "\u0423\u0440\u0430\u043B\u044C\u0441\u043A\u0438\u0439 \u0424\u041E"
+  - "\u041F\u0440\u0438\u0432\u043E\u043B\u0436\u0441\u043A\u0438\u0439 \u0424\u041E"
+  - "\u0421\u0435\u0432\u0435\u0440\u043E-\u043A\u0430\u0432\u043A\u0430\u0437\u0441\u043A\u0438\u0439
+    \u0424\u041E"
+  - "\u041A\u0440\u044B\u043C\u0441\u043A\u0438\u0439 \u0424\u041E"
+  answerIcons: []
+  answerColors:
+  - {r: 1, g: 0.9803922, b: 0, a: 1}
+  - {r: 0.9450981, g: 0.10980393, b: 0.5803922, a: 1}
+  - {r: 0, g: 0.9450981, b: 0.5372549, a: 1}
+  - {r: 1, g: 0.654902, b: 0, a: 1}
+  - {r: 0, g: 0.6862745, b: 1, a: 1}
+  - {r: 0.7254902, g: 0.61960787, b: 0.5019608, a: 1}
+  - {r: 0.10980393, g: 0.7803922, b: 0.13333334, a: 1}
+  - {r: 0.7411765, g: 0.2509804, b: 0.9450981, a: 1}
+  - {r: 0.4666667, g: 1, b: 0.9058824, a: 1}
+  onMapPointsXY: []
+  onMapPointsSprites: []
