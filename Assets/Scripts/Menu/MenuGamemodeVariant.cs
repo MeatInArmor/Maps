@@ -29,6 +29,7 @@ public class MenuGamemodeVariant : MonoBehaviour
     }
     public void OnClick()
     {
+        Debug.Log(gameMode.ModeName);
         CurrentGameInfoST.currentGamemode = gameMode;
         onClick?.Invoke(gameMode);
     }

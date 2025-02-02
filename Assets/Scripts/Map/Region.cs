@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Region : MonoBehaviour
 {
     public event System.Action<Region> onObjectClick;
+    private Region reg;
     [SerializeField] public SpriteClicker markable;
     [SerializeField] public Image image;
     [SerializeField] public string currentAnswer;
@@ -12,25 +12,27 @@ public class Region : MonoBehaviour
 
     private void OnEnable()
     {
-    }
-    void Start()
-    {
+        reg = this;
         markable.onClick += onSpriteClick;
     }
-
-    void Update()
-    {
-        
-    }
+ 
     private void onSpriteClick(SpriteRenderer sprite)
     {
         image.color = CurrentGameInfoST.selectedAnswerColor;
         currentAnswer = CurrentGameInfoST.selectedAnswerID;
-        onObjectClick?.Invoke(this);
+        onObjectClick?.Invoke(reg);
     }
     public void ResetToDefault()
     {
         image.color = CurrentGameInfoST.selectedAnswerColor;
         currentAnswer = CurrentGameInfoST.selectedAnswerID;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<CheckPoint>(out var cp))
+        {
+            onSpriteClick(markable.GetComponent<SpriteRenderer>());
+        }
+        Destroy(other.gameObject);
     }
 }

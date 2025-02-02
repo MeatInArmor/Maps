@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour
         {
             if (mode.Gamemode == 0)
             {
-                mapPanel.mapRegionsStore.SetActive(true);
                 for (int i = 0; i < mode.RegionsSprites.Length; i++)
                 {
                     mapPanel.CreateRegion(mode.RegionsSprites[i], mode.ObjectsTrueAnswer[i]);
@@ -60,7 +59,6 @@ public class GameController : MonoBehaviour
             }
             if(mode.Gamemode == 1)
             {
-                mapPanel.mapPointsStore.SetActive(true);
 
                 for (int i = 0;i < mode.OnMapPointsXY.Length;i++)
                     mapPanel.CreateAnswerPoint(mode.OnMapPointsXY[i], mode.ObjectsTrueAnswer[i], mode.OnMapPointsSprites[i]);

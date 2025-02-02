@@ -14,6 +14,7 @@ public class MapPanel : MonoBehaviour
     [SerializeField] public Region regionPrefab;
     [SerializeField] public MarkAnswerPoint answerPointPrefab;
     [SerializeField] public PlayerPoint playerPointPrefab;
+    [SerializeField] public CheckPoint checkPointPrefab;
 
 
     [SerializeField] public Image basicMap;
@@ -25,8 +26,7 @@ public class MapPanel : MonoBehaviour
     [SerializeField] public List<PlayerPoint> pPoints;
     [SerializeField] public List<MarkAnswerPoint> aPoints;
 
-    [SerializeField] public GameObject mapRegionsStore;
-    [SerializeField] public GameObject mapPointsStore;
+    [SerializeField] public GameObject objectsStore;
 
 
     [SerializeField] public Sprite drawableElement;
@@ -53,40 +53,48 @@ public class MapPanel : MonoBehaviour
     }
     private void CreateOrDeletePoint(InputAction.CallbackContext context)
     {
-        if (CurrentGameInfoST.currentGamemode.Gamemode == 1)
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (collider_.OverlapPoint(mousePosition)) // Проверяем внутри ли коллайдера
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (CurrentGameInfoST.selectedAnswerID != "")
+            if (CurrentGameInfoST.currentGamemode.Gamemode == 0)
             {
-                if (collider_.OverlapPoint(mousePosition)) // Проверяем внутри ли коллайдера
+                CheckPoint cp = Instantiate(checkPointPrefab, mousePosition, Quaternion.identity, objectsStore.transform);
+                cp.transform.localPosition = new Vector3(cp.transform.localPosition.x, cp.transform.localPosition.y, 0f);
+
+            }
+            if (CurrentGameInfoST.currentGamemode.Gamemode == 1)
+            {
+                if (CurrentGameInfoST.selectedAnswerID != "")
                 {
 
-                    PlayerPoint newPoint = Instantiate(playerPointPrefab, mousePosition, Quaternion.identity, mapPointsStore.transform);
+
+                    PlayerPoint newPoint = Instantiate(playerPointPrefab, mousePosition, Quaternion.identity, objectsStore.transform);
                     newPoint.transform.localPosition = new Vector3(newPoint.transform.localPosition.x, newPoint.transform.localPosition.y, 0f);
                     WaitForCreate();
                     newPoint.image.sprite = CurrentGameInfoST.selectedAnswerSprite;
                     newPoint.currentAnswer = CurrentGameInfoST.selectedAnswerID;
                     pPoints.Add(newPoint);
-                }
-            }
-            else
-            {
-                float radius = 20f;
-                PlayerPoint deletePoint = Instantiate(playerPointPrefab, mousePosition, Quaternion.identity, mapPointsStore.transform);
-                deletePoint.transform.localPosition = new Vector3(deletePoint.transform.localPosition.x, deletePoint.transform.localPosition.y, 0f);
 
-                for (int i = 0; i < pPoints.Count;i++)
+                }
+                else
                 {
-                    PlayerPoint checkPoint = pPoints[i];
-                    float distance = Vector2.Distance(deletePoint.transform.localPosition, checkPoint.transform.localPosition);
-                    if(distance < radius)
-                    {
-                        pPoints.RemoveAt(i);
-                        Destroy(checkPoint.gameObject);
+                    float radius = 20f;
+                    PlayerPoint deletePoint = Instantiate(playerPointPrefab, mousePosition, Quaternion.identity, objectsStore.transform);
+                    deletePoint.transform.localPosition = new Vector3(deletePoint.transform.localPosition.x, deletePoint.transform.localPosition.y, 0f);
 
+                    for (int i = 0; i < pPoints.Count; i++)
+                    {
+                        PlayerPoint checkPoint = pPoints[i];
+                        float distance = Vector2.Distance(deletePoint.transform.localPosition, checkPoint.transform.localPosition);
+                        if (distance < radius)
+                        {
+                            pPoints.RemoveAt(i);
+                            Destroy(checkPoint.gameObject);
+
+                        }
                     }
+                    Destroy(deletePoint.gameObject);
                 }
-                Destroy(deletePoint.gameObject);
             }
         }
     }
@@ -100,24 +108,28 @@ public class MapPanel : MonoBehaviour
             internalBorder.sprite = in_;
         if (water != null)
             waters.sprite = water;
-    
+
+        if (CurrentGameInfoST.currentGamemode.Gamemode == 0)
+            collider_.enabled = false;
 
     }
 
     public void CreateRegion(Sprite sprite, string trueAnswer)
     {
-        Region region = Instantiate(regionPrefab, mapRegionsStore.transform);
+        Region region = Instantiate(regionPrefab, objectsStore.transform);
         StartCoroutine(WaitForCreate());
         region.image.sprite = sprite;
         region.markable.GetComponent<SpriteRenderer>().sprite = sprite;
         region.markable.AddComponent<PolygonCollider2D>();
+        region.markable.GetComponent<PolygonCollider2D>().useDelaunayMesh = true;
+        //region.markable.GetComponent<PolygonCollider2D>().isTrigger = true;
         region.trueAnswer = trueAnswer;
         region.onObjectClick += SelectObject;
         regions.Add(region);
     }
     public void CreateAnswerPoint(Vector2 position, string trueAnswer, Sprite icon)
     {
-        MarkAnswerPoint point = Instantiate(answerPointPrefab, mapPointsStore.transform);
+        MarkAnswerPoint point = Instantiate(answerPointPrefab, objectsStore.transform);
         point.transform.localPosition = position;
         WaitForCreate();
         point.icon.sprite = icon;   
